@@ -1,0 +1,67 @@
+# Default values for kor-base.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 667950714614.dkr.ecr.us-east-1.amazonaws.com/asset-renderer-nightshift-survival
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "dev"
+
+fullnameOverride: "asset-renderer-nightshift-survival-dev"
+
+containerPort: 3000
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-2:667950714614:certificate/aa68bfac-fe5d-4b63-972e-91aa3e12a669
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  hosts:
+    - host: test-dev-asset-renderer-nightshift-survival.totem-explorer.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: asset-renderer-nightshift-survival-dev
+            servicePort: 80
+  tls: []
+
+resources:
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "core"
+    effect: "NoSchedule"
+
+env:
+  API_URL: https://matic-mumbai.chainstacklabs.com
+  AVATAR_CONTRACT: 0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35
+  CACHE_MAX_AGE: "259200"
+  GEM_CONTRACT: 0x0e2a085063e15FEce084801C6806F3aE7eaDfBf5
+  ITEM_CONTRACT: 0xfC5654489b23379ebE98BaF37ae7017130B45086
+  host: 0.0.0.0
+  port: "3000"
