@@ -17,8 +17,12 @@
 
 </style>
  
-
-<g style="filter: drop-shadow(0px 0px 150px {{glow_color}});" >
+	{{#ifeq glow 'true'}}
+		<g style="filter: drop-shadow(0px 0px 150px {{glow_color}});" >
+    {{/ifeq}}
+    {{#ifeq glow 'false'}}
+		<g>
+    {{/ifeq}}
 
  <g id="svgg" transform="translate(15, 170) scale(0.68)">
 
