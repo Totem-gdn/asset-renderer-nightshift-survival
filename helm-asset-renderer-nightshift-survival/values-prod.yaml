@@ -31,7 +31,7 @@ ingress:
     alb.ingress.kubernetes.io/scheme: internet-facing
     external-dns.alpha.kubernetes.io/ingress-hostname-source: annotation-only
   hosts:
-    - host: test-asset-renderer-nightshift-survival.totem-explorer.com
+    - host: asset-renderer-nightshift-survival.totem-explorer.com
       paths:
         - path: /
           pathType: Prefix
@@ -63,10 +63,4 @@ tolerations:
     effect: "NoSchedule"
 
 env:
-   host: ""
-   port: ""
-   API_URL: ""
-   AVATAR_CONTRACT: ""
-   GEM_CONTRACT: ""
-   ITEM_CONTRACT: ""
-   CACHE_MAX_AGE: ""
+  ENV: ""
