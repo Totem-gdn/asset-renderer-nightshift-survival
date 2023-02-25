@@ -10,7 +10,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "prod"
 
-fullnameOverride: "asset-renderer-monk-vs-robots"
+fullnameOverride: "asset-renderer-nightshift-survival"
 
 containerPort: 3000
 
