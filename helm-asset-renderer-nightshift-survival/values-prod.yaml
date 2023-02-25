@@ -10,7 +10,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "prod"
 
-fullnameOverride: "asset-renderer-nightshift-survival"
+fullnameOverride: "asset-renderer-nightshift-"
 
 containerPort: 3000
 
