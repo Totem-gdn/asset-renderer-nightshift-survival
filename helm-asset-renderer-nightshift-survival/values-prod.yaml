@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "prod"
 
-fullnameOverride: "asset-renderer-nightshift-"
+fullnameOverride: "asset-renderer-nightshift-survival"
+
 
 containerPort: 3000
 
@@ -23,6 +24,7 @@ ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/group.name: main
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80},{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/scheme: internet-facing
