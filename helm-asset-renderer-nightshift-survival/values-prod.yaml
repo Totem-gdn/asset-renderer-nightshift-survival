@@ -33,7 +33,7 @@ ingress:
         - path: /
           pathType: Prefix
           backend:
-            serviceName: asset-renderer-monk-vs-robots
+            serviceName: asset-renderer-nightshift-survival
             servicePort: 80
   tls: []
 
