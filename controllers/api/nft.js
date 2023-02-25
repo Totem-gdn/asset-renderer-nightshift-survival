@@ -4,18 +4,23 @@ const nftHelper = require('../../helpers/dna-parser')
 class NFTController {
   async get (req, res, next) {
     const { type, id } = req.params
-    let { width = 200, height = 200 } = req.query
+    const { width = 500, height = 500, glow = 'true' } = req.query;
     if (!type || !id) {
       res.status(404).json({ error: 'Wrong format' })
     }
 
     if (type === 'item' || type === 'avatar') {
       const nft = await nftHelper.get(type, id);
+      console.log('nft',nft);
+
       if (nft) {
+      nft['glow_color'] = nft.primary_color.replace(')', ', 0.5)').replace('rgb', 'rgba');
+
         res.setHeader('Content-Type', 'image/svg+xml');
         if (type === 'item') {
           res.render('layouts/item', {
             ...nft,
+            glow,
             layout: 'item.hbs',
             color: nft?.primary_color || '#FFD011',
             width: width,
@@ -26,6 +31,7 @@ class NFTController {
           res.render('layouts/avatar', {
             layout: 'avatar.hbs',
             ...nft,
+            glow,
             width: width,
             height: height
           })
